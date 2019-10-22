@@ -342,6 +342,7 @@ static void recv_cb(EV_P_ ev_io *w, int revents) {
 
         if (quiche_conn_is_established(conn_io->conn)) {
             quiche_h3_event *ev;
+            bool fin = false;
 
             if (conn_io->http3 == NULL) {
                 conn_io->http3 = quiche_h3_conn_new_with_transport(conn_io->conn,
@@ -355,7 +356,8 @@ static void recv_cb(EV_P_ ev_io *w, int revents) {
             while (1) {
                 int64_t s = quiche_h3_conn_poll(conn_io->http3,
                                                 conn_io->conn,
-                                                &ev);
+                                                &ev,
+                                                &fin);
 
                 if (s < 0) {
                     break;

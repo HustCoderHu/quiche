@@ -84,12 +84,13 @@ pub extern fn quiche_h3_conn_new_with_transport(
 #[no_mangle]
 pub extern fn quiche_h3_conn_poll(
     conn: &mut h3::Connection, quic_conn: &mut Connection,
-    ev: *mut *const h3::Event,
+    ev: *mut *const h3::Event, fin: &mut bool,
 ) -> i64 {
     match conn.poll(quic_conn) {
-        Ok((stream_id, v)) => {
+        Ok((stream_id, v, stream_fin)) => {
             unsafe {
                 *ev = Box::into_raw(Box::new(v));
+                *fin = stream_fin
             }
 
             stream_id as i64

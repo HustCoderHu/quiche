@@ -344,7 +344,7 @@ typedef struct Http3Event quiche_h3_event;
 
 // Processes HTTP/3 data received from the peer.
 int quiche_h3_conn_poll(quiche_h3_conn *conn, quiche_conn *quic_conn,
-                        quiche_h3_event **ev);
+                        quiche_h3_event **ev, bool  *fin);
 
 // Returns the type of the event.
 enum quiche_h3_event_type quiche_h3_event_type(quiche_h3_event *ev);

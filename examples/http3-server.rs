@@ -368,7 +368,11 @@ fn main() {
                     let http3_conn = client.http3_conn.as_mut().unwrap();
 
                     match http3_conn.poll(client.conn.as_mut()) {
-                        Ok((stream_id, quiche::h3::Event::Headers(headers))) => {
+                        Ok((
+                            stream_id,
+                            quiche::h3::Event::Headers(headers),
+                            _,
+                        )) => {
                             handle_request(
                                 client,
                                 stream_id,
@@ -377,7 +381,7 @@ fn main() {
                             );
                         },
 
-                        Ok((stream_id, quiche::h3::Event::Data)) => {
+                        Ok((stream_id, quiche::h3::Event::Data, _)) => {
                             info!(
                                 "{} got data on stream id {}",
                                 client.conn.trace_id(),
@@ -385,7 +389,7 @@ fn main() {
                             );
                         },
 
-                        Ok((_stream_id, quiche::h3::Event::Finished)) => (),
+                        Ok((_stream_id, quiche::h3::Event::Finished, _)) => (),
 
                         Err(quiche::h3::Error::Done) => {
                             break;
