@@ -85,15 +85,19 @@ fn main() {
 
     let max_data = args.get_str("--max-data");
     let max_data = u64::from_str_radix(max_data, 10).unwrap();
+    info!("max_data unwrap");
 
     let max_stream_data = args.get_str("--max-stream-data");
     let max_stream_data = u64::from_str_radix(max_stream_data, 10).unwrap();
+    info!("max_stream_data unwrap");
 
     let max_streams_bidi = args.get_str("--max-streams-bidi");
     let max_streams_bidi = u64::from_str_radix(max_streams_bidi, 10).unwrap();
+    info!("max_streams_bidi unwrap");
 
     let max_streams_uni = args.get_str("--max-streams-uni");
     let max_streams_uni = u64::from_str_radix(max_streams_uni, 10).unwrap();
+    info!("max_streams_uni unwrap");
 
     // Setup the event loop.
     let poll = mio::Poll::new().unwrap();

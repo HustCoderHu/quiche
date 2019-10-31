@@ -241,6 +241,7 @@ int main(int argc, char *argv[]) {
         fprintf(stderr, "failed to create config\n");
         return -1;
     }
+    quiche_config_load_cert_chain_from_pem_file(config, "examples/cert.crt");
 
     quiche_config_set_application_protos(config,
         (uint8_t *) "\x05hq-23\x08http/0.9", 15);
